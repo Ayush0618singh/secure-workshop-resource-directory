@@ -8,6 +8,33 @@ A protected administrator workspace is provided for creating, updating, reviewin
 
 ---
 
+## Project Preview
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <strong>Public Resource Directory</strong><br><br>
+      <img src="screenshots/01-home-directory.png" alt="Secure Workshop Resource Directory Home Page">
+    </td>
+    <td width="50%" align="center">
+      <strong>Administrator Dashboard</strong><br><br>
+      <img src="screenshots/06-admin-dashboard.png" alt="Administrator Resource Management Dashboard">
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <strong>Session Summary</strong><br><br>
+      <img src="screenshots/04-session-summary.png" alt="Session-wise Resource Summary">
+    </td>
+    <td width="50%" align="center">
+      <strong>Secure Administrator Login</strong><br><br>
+      <img src="screenshots/05-admin-login.png" alt="Administrator Login">
+    </td>
+  </tr>
+</table>
+
+---
+
 ## Project Context
 
 This project was developed as:
@@ -607,28 +634,22 @@ The application does not intentionally log administrator passwords.
 
 # Screenshots
 
-Project screenshots are stored in:
+The repository includes demonstration screenshots for the main workflows and security checks:
 
-```text
-screenshots/
-```
+| # | Screenshot | What it demonstrates |
+|---|---|---|
+| 01 | `01-home-directory.png` | Public resource directory and secure-learning overview |
+| 02 | `02-search-filter.png` | Search and multi-field filtering |
+| 03 | `03-resource-details.png` | Resource details, prerequisites and trusted URL |
+| 04 | `04-session-summary.png` | Session-wise resource summary |
+| 05 | `05-admin-login.png` | Protected administrator login |
+| 06 | `06-admin-dashboard.png` | Admin statistics and resource management |
+| 07 | `07-add-resource.png` | Resource creation workflow |
+| 08 | `08-url-validation.png` | Rejection of an unsafe URL scheme |
+| 09 | `09-automated-tests.png` | Automated test suite passing |
+| 10 | `10-audit-log.png` | Administrative audit-log evidence |
 
-Recommended demonstration screenshots include:
-
-```text
-01-home-page.png
-02-search-and-filter.png
-03-resource-details.png
-04-session-summary.png
-05-admin-login.png
-06-admin-dashboard.png
-07-add-resource-form.png
-08-validation-error.png
-09-malicious-input-test.png
-10-url-validation-test.png
-11-audit-log.png
-12-automated-tests.png
-```
+All screenshots are available in the [`screenshots/`](screenshots/) directory.
 
 ---
 
