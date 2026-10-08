@@ -1,0 +1,442 @@
+{% extends "base.html" %}
+
+{% block title %}
+Workshop Resource Directory
+{% endblock %}
+
+
+{% block content %}
+
+<section class="premium-hero">
+
+    <div class="container premium-hero-grid">
+
+        <div>
+
+            <div class="hero-kicker">
+                <span class="hero-kicker-dot"></span>
+                SECURE LEARNING DIRECTORY
+            </div>
+
+            <h1>
+                Discover Trusted
+                <span>Workshop Resources</span>
+            </h1>
+
+            <p class="premium-hero-copy">
+                Explore secure and organized learning
+                material for workshop sessions, review
+                prerequisites and quickly find resources
+                using intelligent search and filtering.
+            </p>
+
+            <div class="hero-feature-row">
+
+                <span class="hero-feature">
+                    Searchable Directory
+                </span>
+
+                <span class="hero-feature">
+                    Trusted URLs
+                </span>
+
+                <span class="hero-feature">
+                    Clear Prerequisites
+                </span>
+
+                <span class="hero-feature">
+                    Reviewed Resources
+                </span>
+
+            </div>
+
+            <div class="hero-actions">
+
+                <a
+                    href="#directory"
+                    class="btn btn-primary"
+                >
+                    Explore Resources
+                </a>
+
+                <a
+                    href="{{ url_for('summary') }}"
+                    class="btn btn-secondary"
+                >
+                    View Session Summary
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-control-card">
+
+            <div class="control-card-top">
+
+                <div class="control-card-icon">
+                    SW
+                </div>
+
+                <span class="live-badge">
+                    Directory Active
+                </span>
+
+            </div>
+
+            <div class="hero-resource-count">
+                {{ resources|length }}
+            </div>
+
+            <div class="hero-count-label">
+                resources matching the current view
+            </div>
+
+            <div class="hero-security-grid">
+
+                <div>
+                    ✓ Server Validation
+                </div>
+
+                <div>
+                    ✓ Safe URL Handling
+                </div>
+
+                <div>
+                    ✓ Access Control
+                </div>
+
+                <div>
+                    ✓ Audit Logging
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section
+    class="directory-section"
+    id="directory"
+>
+
+    <div class="container">
+
+        <div class="premium-section-header">
+
+            <div>
+
+                <span class="section-caption">
+                    RESOURCE DISCOVERY
+                </span>
+
+                <h2>
+                    Search the Directory
+                </h2>
+
+            </div>
+
+            <a
+                class="btn btn-outline"
+                href="{{ url_for(
+                    'export_csv',
+                    q=filters.q,
+                    day=filters.day,
+                    resource_type=filters.resource_type,
+                    review_status=filters.review_status
+                ) }}"
+            >
+                Export Filtered CSV
+            </a>
+
+        </div>
+
+
+        <form
+            method="GET"
+            action="{{ url_for('index') }}"
+            class="filter-card premium-filter-card"
+        >
+
+            <div class="form-group search-group">
+
+                <label for="q">
+                    Search Resources
+                </label>
+
+                <input
+                    type="search"
+                    id="q"
+                    name="q"
+                    value="{{ filters.q }}"
+                    placeholder="Search title, topic or prerequisite..."
+                    maxlength="120"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="day">
+                    Workshop Day
+                </label>
+
+                <select
+                    id="day"
+                    name="day"
+                >
+
+                    <option value="">
+                        All Days
+                    </option>
+
+                    {% for day in range(1, 6) %}
+
+                        <option
+                            value="{{ day }}"
+                            {% if filters.day == day|string %}
+                                selected
+                            {% endif %}
+                        >
+                            Day {{ day }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="resource_type">
+                    Resource Type
+                </label>
+
+                <select
+                    id="resource_type"
+                    name="resource_type"
+                >
+
+                    <option value="">
+                        All Types
+                    </option>
+
+                    {% for resource_type in resource_types %}
+
+                        <option
+                            value="{{ resource_type }}"
+                            {% if filters.resource_type == resource_type %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ resource_type }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="review_status">
+                    Review Status
+                </label>
+
+                <select
+                    id="review_status"
+                    name="review_status"
+                >
+
+                    <option value="">
+                        All Statuses
+                    </option>
+
+                    {% for status in review_statuses %}
+
+                        <option
+                            value="{{ status }}"
+                            {% if filters.review_status == status %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ status }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="filter-actions">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Apply Filters
+                </button>
+
+                <a
+                    href="{{ url_for('index') }}"
+                    class="btn btn-secondary"
+                >
+                    Reset
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<section class="section section-soft">
+
+    <div class="container">
+
+        <div class="premium-section-header">
+
+            <div>
+
+                <span class="section-caption">
+                    LEARNING MATERIAL
+                </span>
+
+                <h2>
+                    Available Resources
+                </h2>
+
+            </div>
+
+            <div class="result-count">
+                {{ resources|length }}
+                result{% if resources|length != 1 %}s{% endif %}
+            </div>
+
+        </div>
+
+
+        {% if resources %}
+
+            <div class="premium-resource-grid">
+
+                {% for resource in resources %}
+
+                    <article class="premium-resource-card">
+
+                        <div class="resource-card-heading">
+
+                            <span class="day-badge">
+                                Day {{ resource.day }}
+                            </span>
+
+                            <span
+                                class="
+                                    status-badge
+                                    status-{{ resource.review_status|lower|replace(' ', '-') }}
+                                "
+                            >
+                                {{ resource.review_status }}
+                            </span>
+
+                        </div>
+
+
+                        <span class="resource-type-premium">
+                            {{ resource.resource_type }}
+                        </span>
+
+                        <h3>
+                            {{ resource.session_title }}
+                        </h3>
+
+                        <p class="resource-description-premium">
+                            {{ resource.description }}
+                        </p>
+
+
+                        <div class="prerequisite-premium">
+
+                            <span>
+                                Prerequisite
+                            </span>
+
+                            <p>
+                                {{ resource.prerequisite }}
+                            </p>
+
+                        </div>
+
+
+                        <div class="card-footer">
+
+                            <span class="resource-id">
+                                {{ resource.id }}
+                            </span>
+
+                            <a
+                                href="{{ url_for(
+                                    'resource_detail',
+                                    resource_id=resource.id
+                                ) }}"
+                                class="text-link"
+                            >
+                                View Details →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ?
+                </div>
+
+                <h3>
+                    No Matching Resources
+                </h3>
+
+                <p>
+                    Try changing your search term
+                    or filter selection.
+                </p>
+
+                <a
+                    href="{{ url_for('index') }}"
+                    class="btn btn-primary"
+                >
+                    Clear Filters
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

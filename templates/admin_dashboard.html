@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard | Secure Workshop
+{% endblock %}
+
+
+{% block content %}
+
+<section class="admin-premium-hero">
+
+    <div class="container">
+
+        <span class="section-caption">
+            SECURE ADMINISTRATION
+        </span>
+
+        <h1>
+            Resource Management Dashboard
+        </h1>
+
+        <p class="premium-hero-copy">
+            Create, review, update and manage
+            workshop resources through the
+            protected administrator workspace.
+        </p>
+
+        <div class="admin-identity">
+            Administrator session active
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="admin-stat-grid">
+
+            <div class="admin-stat-card">
+
+                <span>
+                    Total Resources
+                </span>
+
+                <strong>
+                    {{ counts.total }}
+                </strong>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <span>
+                    Reviewed
+                </span>
+
+                <strong>
+                    {{ counts.reviewed }}
+                </strong>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <span>
+                    Pending Review
+                </span>
+
+                <strong>
+                    {{ counts.pending }}
+                </strong>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <span>
+                    Needs Review
+                </span>
+
+                <strong>
+                    {{ counts.needs_review }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-management-card">
+
+            <div class="admin-management-header">
+
+                <div>
+
+                    <span class="section-caption">
+                        RESOURCE MANAGEMENT
+                    </span>
+
+                    <h2>
+                        Workshop Resources
+                    </h2>
+
+                    <p>
+                        Administrative modifications
+                        are recorded in the local
+                        audit log.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{{ url_for('admin_resource_new') }}"
+                    class="btn btn-primary"
+                >
+                    + Add New Resource
+                </a>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Day</th>
+                            <th>Session</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for resource in resources %}
+
+                            <tr>
+
+                                <td>
+                                    <span class="resource-id">
+                                        {{ resource.id }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="day-badge">
+                                        Day {{ resource.day }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <strong>
+                                        {{ resource.session_title }}
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    {{ resource.resource_type }}
+                                </td>
+
+                                <td>
+
+                                    <span
+                                        class="
+                                            status-badge
+                                            status-{{ resource.review_status|lower|replace(' ', '-') }}
+                                        "
+                                    >
+                                        {{ resource.review_status }}
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <div class="table-actions">
+
+                                        <a
+                                            href="{{ url_for(
+                                                'resource_detail',
+                                                resource_id=resource.id
+                                            ) }}"
+                                            class="action-link"
+                                        >
+                                            View
+                                        </a>
+
+                                        <a
+                                            href="{{ url_for(
+                                                'admin_resource_edit',
+                                                resource_id=resource.id
+                                            ) }}"
+                                            class="action-link"
+                                        >
+                                            Edit
+                                        </a>
+
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for(
+                                                'admin_resource_delete',
+                                                resource_id=resource.id
+                                            ) }}"
+                                            class="delete-form"
+                                            data-resource-name="{{ resource.session_title }}"
+                                        >
+
+                                            <input
+                                                type="hidden"
+                                                name="_csrf_token"
+                                                value="{{ csrf_token() }}"
+                                            >
+
+                                            <button
+                                                type="submit"
+                                                class="action-link danger-link"
+                                            >
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% else %}
+
+                            <tr>
+
+                                <td
+                                    colspan="6"
+                                    class="table-empty"
+                                >
+                                    No resources available.
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-security-box">
+
+            <h3>
+                Protected Administrative Workflow
+            </h3>
+
+            <p>
+                Resource changes require administrator
+                access, state-changing forms use CSRF
+                protection and create/update/delete
+                operations are recorded without storing
+                passwords in audit logs.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

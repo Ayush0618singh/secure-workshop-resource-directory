@@ -1,0 +1,82 @@
+[
+  {
+    "id": "RES-001",
+    "session_title": "Foundation of Modern Web Technologies",
+    "day": 1,
+    "resource_type": "Documentation",
+    "description": "Reference material covering modern web architecture, browser-server communication and request-response concepts.",
+    "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development",
+    "prerequisite": "Basic understanding of computers and internet usage",
+    "review_status": "Reviewed"
+  },
+  {
+    "id": "RES-002",
+    "session_title": "Python File Handling and Utilities",
+    "day": 1,
+    "resource_type": "Documentation",
+    "description": "Python documentation for working with files, structured data and commonly used standard-library utilities.",
+    "url": "https://docs.python.org/3/",
+    "prerequisite": "Basic Python programming",
+    "review_status": "Reviewed"
+  },
+  {
+    "id": "RES-003",
+    "session_title": "Responsive Web Interface Architecture",
+    "day": 2,
+    "resource_type": "Article",
+    "description": "Learning resource for responsive HTML and CSS layouts that adapt to different screen sizes.",
+    "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design",
+    "prerequisite": "Basic HTML and CSS",
+    "review_status": "Reviewed"
+  },
+  {
+    "id": "RES-004",
+    "session_title": "SQL Query Processing",
+    "day": 3,
+    "resource_type": "Documentation",
+    "description": "Official SQLite documentation for relational data storage and SQL query processing.",
+    "url": "https://www.sqlite.org/docs.html",
+    "prerequisite": "Basic database concepts",
+    "review_status": "Reviewed"
+  },
+  {
+    "id": "RES-005",
+    "session_title": "Secure Web Application Development",
+    "day": 3,
+    "resource_type": "Documentation",
+    "description": "Documentation for building interactive Python applications using the Streamlit framework.",
+    "url": "https://docs.streamlit.io/",
+    "prerequisite": "Python fundamentals",
+    "review_status": "Pending"
+  },
+  {
+    "id": "RES-006",
+    "session_title": "Flask Application Development",
+    "day": 4,
+    "resource_type": "Documentation",
+    "description": "Official Flask documentation covering routing, templates, request handling and web application development.",
+    "url": "https://flask.palletsprojects.com/",
+    "prerequisite": "Python, HTML and basic web concepts",
+    "review_status": "Reviewed"
+  },
+  {
+    "id": "RES-007",
+    "session_title": "Data Visualization with Matplotlib",
+    "day": 4,
+    "resource_type": "Documentation",
+    "description": "Official Matplotlib documentation for creating charts and analytical visualizations using Python.",
+    "url": "https://matplotlib.org/stable/",
+    "prerequisite": "Python and basic data handling",
+    "review_status": "Pending"
+  },
+  {
+    "id": "RES-008",
+    "session_title": "Secure Software Development Life Cycle",
+    "day": 5,
+    "resource_type": "Article",
+    "description": "Security reference material useful for understanding common application risks and secure development practices.",
+    "url": "https://owasp.org/www-project-top-ten/",
+    "prerequisite": "Basic software development concepts",
+    "review_status": "Needs Review"
+  }
+]

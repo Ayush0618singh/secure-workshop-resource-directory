@@ -1,0 +1,433 @@
+{% extends "base.html" %}
+
+{% block title %}
+Administrator Login | Secure Workshop Resource Directory
+{% endblock %}
+
+
+{% block content %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/login.css') }}"
+>
+
+
+<section class="login-page">
+
+    <div class="login-shell">
+
+
+        <!-- ================================
+             LEFT INFORMATION PANEL
+             ================================ -->
+
+        <div class="login-visual">
+
+            <div class="login-visual-content">
+
+                <div class="login-security-badge">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                        />
+
+                        <path
+                            d="m9 12 2 2 4-4"
+                        />
+                    </svg>
+
+                </div>
+
+
+                <span class="login-label">
+                    SECURE ADMINISTRATION
+                </span>
+
+
+                <h1>
+                    Manage Workshop Resources Securely
+                </h1>
+
+
+                <p class="login-visual-description">
+                    The administrator workspace provides
+                    controlled access for creating,
+                    reviewing, updating and removing
+                    workshop learning resources.
+                </p>
+
+            </div>
+
+
+            <div class="login-security-list">
+
+                <div class="login-security-item">
+
+                    <span class="login-check">
+                        ✓
+                    </span>
+
+                    Administrator-only resource management
+
+                </div>
+
+
+                <div class="login-security-item">
+
+                    <span class="login-check">
+                        ✓
+                    </span>
+
+                    Server-side input validation
+
+                </div>
+
+
+                <div class="login-security-item">
+
+                    <span class="login-check">
+                        ✓
+                    </span>
+
+                    Protected state-changing requests
+
+                </div>
+
+
+                <div class="login-security-item">
+
+                    <span class="login-check">
+                        ✓
+                    </span>
+
+                    Administrative activity logging
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             LOGIN FORM
+             ================================ -->
+
+        <div class="login-form-side">
+
+
+            <div class="login-form-header">
+
+                <div class="login-form-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <rect
+                            x="3"
+                            y="11"
+                            width="18"
+                            height="10"
+                            rx="2"
+                        />
+
+                        <path
+                            d="M7 11V7a5 5 0 0 1 10 0v4"
+                        />
+                    </svg>
+
+                </div>
+
+
+                <span class="eyebrow">
+                    AUTHORIZED ACCESS
+                </span>
+
+
+                <h2>
+                    Administrator Login
+                </h2>
+
+
+                <p>
+                    Sign in to access the protected
+                    workshop resource management dashboard.
+                </p>
+
+            </div>
+
+
+            <form
+                method="POST"
+                class="professional-login-form"
+                autocomplete="off"
+            >
+
+                <input
+                    type="hidden"
+                    name="_csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
+
+                <!-- Username -->
+
+                <div class="login-field">
+
+                    <label for="username">
+                        Administrator Username
+                    </label>
+
+
+                    <div class="login-input-wrapper">
+
+                        <svg
+                            class="input-icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path
+                                d="M20 21a8 8 0 0 0-16 0"
+                            />
+
+                            <circle
+                                cx="12"
+                                cy="7"
+                                r="4"
+                            />
+                        </svg>
+
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            required
+                            maxlength="80"
+                            autocomplete="username"
+                            placeholder="Enter your username"
+                            autofocus
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="login-field">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+
+                    <div class="login-input-wrapper">
+
+                        <svg
+                            class="input-icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <rect
+                                x="3"
+                                y="11"
+                                width="18"
+                                height="10"
+                                rx="2"
+                            />
+
+                            <path
+                                d="M7 11V7a5 5 0 0 1 10 0v4"
+                            />
+                        </svg>
+
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            required
+                            maxlength="120"
+                            autocomplete="current-password"
+                            placeholder="Enter your password"
+                        >
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="passwordToggle"
+                            aria-label="Show password"
+                        >
+
+                            <svg
+                                id="eyeIcon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <path
+                                    d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"
+                                />
+
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="3"
+                                />
+                            </svg>
+
+                        </button>
+
+                    </div>
+
+                </div>
+                
+                <div class="login-helper-row">
+
+                    <span>
+                        Protected administrator access
+                    </span>
+
+                    <a
+                        href="{{ url_for('forgot_password') }}"
+                        class="forgot-link"
+                    >
+                        Forgot password?
+                    </a>
+
+                </div>
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="login-submit"
+                >
+
+                    Sign In to Dashboard
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M5 12h14" />
+                        <path d="m13 6 6 6-6 6" />
+                    </svg>
+
+                </button>
+
+            </form>
+
+
+            <!-- Security information -->
+
+            <div class="login-security-note">
+
+                <div class="login-security-note-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="10"
+                        />
+
+                        <path d="M12 16v-4" />
+                        <path d="M12 8h.01" />
+                    </svg>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Secure local configuration
+                    </strong>
+
+                    <p>
+                        Administrator credentials are
+                        loaded from local configuration
+                        and are not written to the
+                        application audit log.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="login-back">
+
+                <a href="{{ url_for('index') }}">
+                    ← Return to Public Resource Directory
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+    const passwordInput =
+        document.getElementById("password");
+
+    const passwordToggle =
+        document.getElementById("passwordToggle");
+
+
+    passwordToggle.addEventListener(
+        "click",
+        function () {
+
+            const isPassword =
+                passwordInput.type === "password";
+
+            passwordInput.type =
+                isPassword
+                    ? "text"
+                    : "password";
+
+            passwordToggle.setAttribute(
+                "aria-label",
+                isPassword
+                    ? "Hide password"
+                    : "Show password"
+            );
+
+        }
+    );
+
+</script>
+
+{% endblock %}

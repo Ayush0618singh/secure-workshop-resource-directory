@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block title %}
+Session Summary | Secure Workshop
+{% endblock %}
+
+
+{% block content %}
+
+<section class="analytics-hero">
+
+    <div class="container">
+
+        <span class="section-caption">
+            WORKSHOP ANALYTICS
+        </span>
+
+        <h1>
+            Session-wise Resource Summary
+        </h1>
+
+        <p class="premium-hero-copy">
+            A structured overview of learning
+            resources available across workshop
+            sessions and review states.
+        </p>
+
+
+        <div class="metric-grid">
+
+            <div class="metric-card">
+
+                <span>
+                    Total Resources
+                </span>
+
+                <strong>
+                    {{ total_resources }}
+                </strong>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <span>
+                    Workshop Sessions
+                </span>
+
+                <strong>
+                    {{ summary_rows|length }}
+                </strong>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <span>
+                    Reviewed Resources
+                </span>
+
+                <strong>
+                    {{ summary_rows | map(attribute='reviewed') | sum }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="premium-section-header">
+
+            <div>
+
+                <span class="section-caption">
+                    SESSION BREAKDOWN
+                </span>
+
+                <h2>
+                    Resource Distribution
+                </h2>
+
+            </div>
+
+            <a
+                href="{{ url_for('export_csv') }}"
+                class="btn btn-outline"
+            >
+                Export Complete Directory
+            </a>
+
+        </div>
+
+
+        <div class="summary-table-premium">
+
+            <div class="table-responsive">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Session</th>
+                            <th>Day</th>
+                            <th>Resource Types</th>
+                            <th>Total</th>
+                            <th>Reviewed</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for row in summary_rows %}
+
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        {{ row.session_title }}
+                                    </strong>
+                                </td>
+
+                                <td>
+
+                                    {% for day in row.days %}
+
+                                        <span class="mini-badge">
+                                            Day {{ day }}
+                                        </span>
+
+                                    {% endfor %}
+
+                                </td>
+
+                                <td>
+                                    {{ row.types|join(", ") }}
+                                </td>
+
+                                <td>
+                                    {{ row.count }}
+                                </td>
+
+                                <td>
+                                    {{ row.reviewed }}
+                                </td>
+
+                            </tr>
+
+                        {% else %}
+
+                            <tr>
+
+                                <td
+                                    colspan="5"
+                                    class="table-empty"
+                                >
+                                    No resource data available.
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-actions">
+
+            <a
+                href="{{ url_for('index') }}"
+                class="btn btn-primary"
+            >
+                Browse Directory
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

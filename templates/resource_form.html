@@ -1,0 +1,381 @@
+{% extends "base.html" %}
+
+{% if mode == "edit" %}
+    {% set page_title = "Edit Resource" %}
+{% else %}
+    {% set page_title = "Add Resource" %}
+{% endif %}
+
+
+{% block title %}
+{{ page_title }} | Secure Workshop
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-banner">
+
+    <div class="container">
+
+        <a
+            href="{{ url_for('admin_dashboard') }}"
+            class="back-link"
+        >
+            ← Back to Admin Dashboard
+        </a>
+
+        <span class="eyebrow">
+            ADMINISTRATOR WORKFLOW
+        </span>
+
+        <h1>
+            {{ page_title }}
+        </h1>
+
+        <p>
+            All submitted fields are validated
+            before the resource is stored.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container form-container">
+
+        <form
+            method="POST"
+            class="resource-form-card"
+            novalidate
+        >
+
+            <input
+                type="hidden"
+                name="_csrf_token"
+                value="{{ csrf_token() }}"
+            >
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group form-span-2">
+
+                    <label for="session_title">
+                        Session Title
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="session_title"
+                        name="session_title"
+                        required
+                        maxlength="120"
+                        value="{{ form_data.get('session_title', '') }}"
+                        placeholder="Example: Secure Web Application Development"
+                        class="{% if errors.get('session_title') %}input-error{% endif %}"
+                    >
+
+                    {% if errors.get("session_title") %}
+
+                        <span class="error-message">
+                            {{ errors.session_title }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="day">
+                        Workshop Day
+                        <span class="required">*</span>
+                    </label>
+
+                    <select
+                        id="day"
+                        name="day"
+                        required
+                        class="{% if errors.get('day') %}input-error{% endif %}"
+                    >
+
+                        <option value="">
+                            Select Day
+                        </option>
+
+                        {% for day in range(1, 6) %}
+
+                            <option
+                                value="{{ day }}"
+                                {% if form_data.get('day')|string == day|string %}
+                                    selected
+                                {% endif %}
+                            >
+                                Day {{ day }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                    {% if errors.get("day") %}
+
+                        <span class="error-message">
+                            {{ errors.day }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="resource_type">
+                        Resource Type
+                        <span class="required">*</span>
+                    </label>
+
+                    <select
+                        id="resource_type"
+                        name="resource_type"
+                        required
+                        class="{% if errors.get('resource_type') %}input-error{% endif %}"
+                    >
+
+                        <option value="">
+                            Select Type
+                        </option>
+
+                        {% for resource_type in resource_types %}
+
+                            <option
+                                value="{{ resource_type }}"
+                                {% if form_data.get('resource_type') == resource_type %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ resource_type }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                    {% if errors.get("resource_type") %}
+
+                        <span class="error-message">
+                            {{ errors.resource_type }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="form-group form-span-2">
+
+                    <label for="description">
+                        Description
+                        <span class="required">*</span>
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        required
+                        maxlength="1000"
+                        rows="6"
+                        placeholder="Describe the learning resource..."
+                        class="{% if errors.get('description') %}input-error{% endif %}"
+                    >{{ form_data.get('description', '') }}</textarea>
+
+                    <div class="field-footer">
+
+                        {% if errors.get("description") %}
+
+                            <span class="error-message">
+                                {{ errors.description }}
+                            </span>
+
+                        {% else %}
+
+                            <span class="help-text">
+                                Maximum 1000 characters
+                            </span>
+
+                        {% endif %}
+
+                        <span
+                            class="character-count"
+                            data-counter-for="description"
+                        >
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group form-span-2">
+
+                    <label for="url">
+                        Resource URL
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="url"
+                        id="url"
+                        name="url"
+                        required
+                        maxlength="500"
+                        value="{{ form_data.get('url', '') }}"
+                        placeholder="https://example.com/resource"
+                        class="{% if errors.get('url') %}input-error{% endif %}"
+                    >
+
+                    {% if errors.get("url") %}
+
+                        <span class="error-message">
+                            {{ errors.url }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="help-text">
+                            Only HTTP and HTTPS URLs are accepted.
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="form-group form-span-2">
+
+                    <label for="prerequisite">
+                        Prerequisite
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="prerequisite"
+                        name="prerequisite"
+                        required
+                        maxlength="250"
+                        value="{{ form_data.get('prerequisite', '') }}"
+                        placeholder="Example: Basic Python programming"
+                        class="{% if errors.get('prerequisite') %}input-error{% endif %}"
+                    >
+
+                    {% if errors.get("prerequisite") %}
+
+                        <span class="error-message">
+                            {{ errors.prerequisite }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="form-group form-span-2">
+
+                    <label for="review_status">
+                        Resource Review Status
+                    </label>
+
+                    <select
+                        id="review_status"
+                        name="review_status"
+                        class="{% if errors.get('review_status') %}input-error{% endif %}"
+                    >
+
+                        {% for status in review_statuses %}
+
+                            <option
+                                value="{{ status }}"
+                                {% if form_data.get('review_status', 'Pending') == status %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ status }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                    {% if errors.get("review_status") %}
+
+                        <span class="error-message">
+                            {{ errors.review_status }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="help-text">
+                            This implements the optional
+                            resource-review-status extension.
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="form-security-note">
+
+                <strong>
+                    Validation & Security
+                </strong>
+
+                <p>
+                    Required fields, accepted values,
+                    field lengths and URL schemes are
+                    validated on the server before saving.
+                </p>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    {% if mode == "edit" %}
+                        Save Changes
+                    {% else %}
+                        Create Resource
+                    {% endif %}
+                </button>
+
+                <a
+                    href="{{ url_for('admin_dashboard') }}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

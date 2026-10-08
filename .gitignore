@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+
+# Local configuration / secrets
+.env
+
+# Logs
+logs/*.log
+
+# Temporary files
+*.tmp
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Flask
+instance/
+
+data/admin_auth.json

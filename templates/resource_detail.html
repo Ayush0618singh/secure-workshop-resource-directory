@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ resource.session_title }} | Resource Details
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-banner">
+
+    <div class="container">
+
+        <a
+            href="{{ url_for('index') }}"
+            class="back-link"
+        >
+            ← Back to Directory
+        </a>
+
+        <span class="eyebrow">
+            RESOURCE DETAILS
+        </span>
+
+        <h1>
+            {{ resource.session_title }}
+        </h1>
+
+        <p>
+            Complete information about this
+            workshop learning resource.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container narrow-container">
+
+        <div class="detail-card">
+
+            <div class="detail-header">
+
+                <div>
+
+                    <span class="day-badge">
+                        Day {{ resource.day }}
+                    </span>
+
+                    <span class="resource-type">
+                        {{ resource.resource_type }}
+                    </span>
+
+                </div>
+
+                <span
+                    class="
+                        status-badge
+                        status-{{ resource.review_status|lower|replace(' ', '-') }}
+                    "
+                >
+                    {{ resource.review_status }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-section">
+
+                <h3>
+                    Description
+                </h3>
+
+                <p>
+                    {{ resource.description }}
+                </p>
+
+            </div>
+
+
+            <div class="detail-section">
+
+                <h3>
+                    Prerequisite
+                </h3>
+
+                <p>
+                    {{ resource.prerequisite }}
+                </p>
+
+            </div>
+
+
+            <div class="detail-section">
+
+                <h3>
+                    Trusted Resource URL
+                </h3>
+
+                <div class="url-box">
+
+                    <code>
+                        {{ resource.url }}
+                    </code>
+
+                    {% if
+                        resource.url.startswith("https://")
+                        or
+                        resource.url.startswith("http://")
+                    %}
+
+                        <a
+                            href="{{ resource.url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-primary"
+                        >
+                            Open Resource
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+                <p class="help-text">
+                    The application stores the URL but
+                    does not automatically fetch arbitrary
+                    external content.
+                </p>
+
+            </div>
+
+
+            <div class="detail-meta">
+
+                <div>
+
+                    <span>
+                        Resource ID
+                    </span>
+
+                    <strong>
+                        {{ resource.id }}
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Review Status
+                    </span>
+
+                    <strong>
+                        {{ resource.review_status }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            {% if is_admin %}
+
+                <div class="detail-actions">
+
+                    <a
+                        href="{{ url_for(
+                            'admin_resource_edit',
+                            resource_id=resource.id
+                        ) }}"
+                        class="btn btn-primary"
+                    >
+                        Edit Resource
+                    </a>
+
+                    <a
+                        href="{{ url_for('admin_dashboard') }}"
+                        class="btn btn-secondary"
+                    >
+                        Admin Dashboard
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
